@@ -5,26 +5,58 @@ on:
   push: { branches: [master, merge_requests] }
 
 jobs:
-  build:
-    name: Build my project
+  Release:
+    name: Release
     runs-on: windows-latest
     steps:
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          lfs: true
 
       # Build
       - name: Build project
         run: |
-            mkdir build
-            cd build
-            cmake ..
-            cmake --build . --config Release
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Release
+
+      # Tests
+      - name: Test project
+        run: |
+          cd Build
+          ctest
 
       # Output
       - uses: actions/upload-artifact@v2
         with:
-          name: Executable
+          name: Release
           path: build/Release/DofusBotFM.exe
+          
+  Debug:
+    name: Debug
+    runs-on: windows-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Build
+      - name: Build project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --config Debug
+
+      # Tests
+      - name: Test project
+        run: |
+          cd Build
+          ctest
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Debug
+          path: build/Debug/DofusBotFM.exe
