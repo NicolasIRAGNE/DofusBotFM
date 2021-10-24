@@ -35,6 +35,7 @@ target_sources(
 add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
 target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}Lib)
+target_include_directories(${PROJECT_NAME}Lib PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
 #######################################################
 #                        TEST                         #
