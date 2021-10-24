@@ -10,6 +10,14 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-set(SOURCES src/main.cpp)
-
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(
+	${PROJECT_NAME}
+	"src/main.cpp"
+	"src/Item.cpp"
+	"src/Item.h"
+	"src/StatsList.h"
+	"src/StatsDensity.h"
+	"src/StatsDensity.cpp"
+	"src/RunesList.h"
+	"src/RuneProperties.h"
+	"src/RuneProperties.cpp")
