@@ -1,0 +1,36 @@
+name: Actions
+
+on:
+  pull_request: {}
+  push: { branches: [master, merge_requests] }
+
+jobs:
+  build:
+    name: Build my project
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library
+
+      # Build
+      - name: Build project
+        run: |
+            mkdir build
+            cd build
+            cmake ..
+            cmake --build .
+
+      # Output
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Build
+          path: build
