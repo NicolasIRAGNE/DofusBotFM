@@ -27,7 +27,7 @@ static const std::unordered_map<Stat, float> densityMap = {
     {Stat::Po, 51.f},         {Stat::GaPm, 90.f},    {Stat::GaPa, 100.f},
 };
 
-float GetStatDensity(Stat stat)
+float GetStatDensity(const Stat& stat)
 {
     auto it = densityMap.find(stat);
     assert(it != densityMap.end());
