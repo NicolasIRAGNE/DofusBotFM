@@ -18,10 +18,10 @@ set(CMAKE_C_EXTENSIONS OFF)
 #                       BUILD                         #
 #######################################################
 
-add_library(${PROJECT_NAME}Lib)
+add_library(DBFLib)
 
 target_sources(
-    ${PROJECT_NAME}Lib
+    DBFLib
     PRIVATE 
         "src/Item.cpp"
         "src/Item.h"
@@ -32,18 +32,18 @@ target_sources(
         "src/RuneProperties.h"
         "src/RuneProperties.cpp")
 
-add_executable(${PROJECT_NAME})
-target_sources(${PROJECT_NAME} PRIVATE "src/main.cpp")
-target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}Lib)
-target_include_directories(${PROJECT_NAME}Lib PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>")
+add_executable(DofusBotFM)
+target_sources(DofusBotFM PRIVATE "src/main.cpp")
+target_link_libraries(DofusBotFM DBFLib)
+target_include_directories(DBFLib PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>")
 
 #######################################################
 #                        TEST                         #
 #######################################################
 
 # Add a way to access private headers for testing
-# Use set_property(TARGET ${PROJECT_NAME}Tests PROPERTY ${PROJECT_NAME}Lib_PRIVATE_HEADERS 1) to enable it
-target_include_directories(${PROJECT_NAME}Lib PUBLIC "$<BUILD_INTERFACE:$<$<BOOL:$<TARGET_PROPERTY:${PROJECT_NAME}Lib_PRIVATE_HEADERS>>:${CMAKE_CURRENT_SOURCE_DIR}/src>>")
+# Use set_property(TARGET <YourProject> PROPERTY DBFLib_PRIVATE_HEADERS 1) to enable it
+target_include_directories(DBFLib PUBLIC "$<BUILD_INTERFACE:$<$<BOOL:$<TARGET_PROPERTY:DBFLib_PRIVATE_HEADERS>>:${CMAKE_CURRENT_SOURCE_DIR}/src>>")
 
 enable_testing()
 add_subdirectory(test)
