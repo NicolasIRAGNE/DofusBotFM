@@ -18,5 +18,6 @@ target_sources(
         "StatsDensityTest.cpp")
 
 target_link_libraries(${PROJECT_NAME}Tests ${PROJECT_NAME}Lib gtest_main)
+set_property(TARGET ${PROJECT_NAME}Tests PROPERTY ${PROJECT_NAME}Lib_PRIVATE_HEADERS 1)
 
 gtest_discover_tests(${PROJECT_NAME}Tests)
