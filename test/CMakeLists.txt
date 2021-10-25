@@ -18,6 +18,5 @@ target_sources(
         "StatsDensityTest.cpp")
 
 target_link_libraries(${PROJECT_NAME}Tests ${PROJECT_NAME}Lib gtest_main)
-target_include_directories(${PROJECT_NAME}Tests PRIVATE "${CMAKE_SOURCE_DIR}/src")
 
 gtest_discover_tests(${PROJECT_NAME}Tests)
