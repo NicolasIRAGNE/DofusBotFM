@@ -8,16 +8,16 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 
-add_executable(${PROJECT_NAME}Tests)
+add_executable(DBFTests)
 
 target_sources(
-    ${PROJECT_NAME}Tests
+    DBFTests
     PRIVATE
         "ItemTest.cpp"
         "RunePropertiesTest.cpp"
         "StatsDensityTest.cpp")
 
-target_link_libraries(${PROJECT_NAME}Tests ${PROJECT_NAME}Lib gtest_main)
-set_property(TARGET ${PROJECT_NAME}Tests PROPERTY ${PROJECT_NAME}Lib_PRIVATE_HEADERS 1)
+target_link_libraries(DBFTests DBFLib gtest_main)
+set_property(TARGET DBFTests PROPERTY DBFLib_PRIVATE_HEADERS 1)
 
-gtest_discover_tests(${PROJECT_NAME}Tests)
+gtest_discover_tests(DBFTests)
