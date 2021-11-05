@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v2
 
       # Build
-      - name: Build project
+      - name: Build
         run: |
           mkdir build
           cd build
@@ -22,7 +22,7 @@ jobs:
           cmake --build . --config Release
 
       # Tests
-      - name: Test project
+      - name: Tests
         run: |
           cd Build
           ctest
@@ -42,18 +42,27 @@ jobs:
         uses: actions/checkout@v2
 
       # Build
-      - name: Build project
+      - name: Build
         run: |
           mkdir build
           cd build
           cmake ..
           cmake --build . --config Debug
 
-      # Tests
-      - name: Test project
+      # Tests and Coverage
+      - name: Tests and Coverage
         run: |
-          cd Build
-          ctest
+            choco install OpenCppCoverage -y
+            $env:path += ";C:\Program Files\OpenCppCoverage"
+            OpenCppCoverage.exe --sources DofusBotFM\src\ --export_type cobertura:coverage.xml .\build\test\Debug\DBFTests.exe
+
+      # Upload Coverage
+      - name: Upload Report to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          functionalities: fix
 
       # Output
       - uses: actions/upload-artifact@v2

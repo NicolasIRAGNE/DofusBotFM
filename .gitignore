@@ -15,6 +15,7 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 out
+build
 
 ### CMake Patch ###
 # External projects
