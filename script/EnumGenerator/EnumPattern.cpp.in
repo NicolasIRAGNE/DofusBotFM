@@ -1,0 +1,85 @@
+#include "%ENUM_NAME%.h"
+
+#include <map>
+#include <stdexcept>
+#include <format>
+
+namespace DBF {
+
+constexpr int %ENUM_NAME%::EnumSize()
+{
+    return %ENUM_SIZE%;
+}
+
+void %ENUM_NAME%::Foreach(const std::function<void(%ENUM_NAME%Impl)> cb)
+{
+    for (int i = 0; i < EnumSize(); i++) {
+        %ENUM_NAME%Impl value = static_cast<%ENUM_NAME%Impl>(i);
+        cb(value);
+    }
+}
+
+%ENUM_NAME%::%ENUM_NAME%(%ENUM_NAME%Impl value) : m_Value(value)
+{
+}
+
+%ENUM_NAME%::%ENUM_NAME%(const std::string_view& valueStr)
+    : %ENUM_NAME%(StringTo%ENUM_NAME%Impl(valueStr))
+{
+}
+
+%ENUM_NAME%::%ENUM_NAME%(const char* valueStr)
+    : %ENUM_NAME%(StringTo%ENUM_NAME%Impl(valueStr))
+{
+}
+
+std::string_view %ENUM_NAME%::ToString()
+{
+    return %ENUM_NAME%ImplToString(m_Value);
+}
+
+%ENUM_NAME%::operator const std::string_view&()
+{
+    return ToString();
+}
+
+const %ENUM_NAME%& %ENUM_NAME%::operator=(const std::string_view& valueStr)
+{
+    m_Value = StringTo%ENUM_NAME%Impl(valueStr);
+
+    return *this;
+}
+
+const %ENUM_NAME%& %ENUM_NAME%::operator=(const char* valueStr)
+{
+    m_Value = StringTo%ENUM_NAME%Impl(valueStr);
+
+    return *this;
+}
+
+constexpr std::string_view %ENUM_NAME%::%ENUM_NAME%ImplToString(
+    %ENUM_NAME%Impl value)
+{
+    constexpr std::string_view toStrTable[EnumSize()] =
+        {%ENUM_VALUES_STRINGS%};
+
+    return toStrTable[static_cast<int>(value)];
+}
+
+%ENUM_NAME%::%ENUM_NAME%Impl %ENUM_NAME%::StringTo%ENUM_NAME%Impl(
+    const std::string_view& valueStr)
+{
+    static const std::map<const std::string_view, %ENUM_NAME%Impl> fromStrTable =
+        {%ENUM_VALUES_MAP%};
+
+    const auto it = fromStrTable.find(valueStr);
+    if (it == fromStrTable.end()) {
+        throw std::invalid_argument(
+            std::format("Cannot convert {} to %ENUM_NAME%", valueStr));
+    }
+
+    const auto& value = it->second;
+    return value;
+}
+
+} // namespace DBF
