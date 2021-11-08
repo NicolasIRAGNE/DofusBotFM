@@ -20,17 +20,45 @@ set(CMAKE_C_EXTENSIONS OFF)
 
 add_library(DBFLib)
 
+set(GENERATED_SOURCES_FOLDER "${CMAKE_CURRENT_BINARY_DIR}/generated-src")
+
+set(ENUM_JSONS)
+
+set(ENUM_GENERATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/script/EnumGenerator")
+
+set(ENUM_GENERATOR "${ENUM_GENERATOR_FOLDER}/EnumGenerator.py")
+set(ENUM_GENERATOR_DEPENDENCIES
+    ${PYTHON_SCRIPT_ENUM_GENERATOR}
+    "${ENUM_GENERATOR_FOLDER}/EnumPattern.h.in"
+    "${ENUM_GENERATOR_FOLDER}/EnumPattern.cpp.in")
+
+set(GENERATED_SOURCES)
+    
+foreach(ENUM_JSON ${ENUM_JSONS})
+    get_filename_component(FILENAME ${ENUM_JSON} NAME_WE)
+    set(HEADER_OUT ${GENERATED_SOURCES_FOLDER}/${FILENAME}.h)
+    set(CPP_OUT ${GENERATED_SOURCES_FOLDER}/${FILENAME}.cpp)
+    list(APPEND GENERATED_SOURCES ${HEADER_OUT} ${CPP_OUT})
+    add_custom_command(
+        OUTPUT ${HEADER_OUT} ${CPP_OUT}
+        DEPENDS ${ENUM_JSON} ${SCRIPT_DEPENDENCIES}
+        COMMAND python ${ENUM_GENERATOR} ${ENUM_JSON} ${GENERATED_SOURCES_FOLDER}
+        COMMENT "Generating ${HEADER_OUT} and ${CPP_OUT} from ${ENUM_JSON}")
+endforeach(ENUM_JSON)
+
 target_sources(
     DBFLib
     PRIVATE 
-        "src/Item.cpp"
-        "src/Item.h"
-        "src/StatsList.h"
-        "src/StatsDensity.h"
-        "src/StatsDensity.cpp"
-        "src/RunesList.h"
-        "src/RuneProperties.h"
-        "src/RuneProperties.cpp")
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsList.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/RunesList.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.cpp"
+        
+        ${GENERATED_SOURCES})
 
 add_executable(DofusBotFM)
 target_sources(DofusBotFM PRIVATE "src/main.cpp")

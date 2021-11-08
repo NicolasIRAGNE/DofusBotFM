@@ -13,9 +13,9 @@ add_executable(DBFTests)
 target_sources(
     DBFTests
     PRIVATE
-        "ItemTest.cpp"
-        "RunePropertiesTest.cpp"
-        "StatsDensityTest.cpp")
+        "${CMAKE_CURRENT_SOURCE_DIR}/ItemTest.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/RunePropertiesTest.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/StatsDensityTest.cpp")
 
 target_link_libraries(DBFTests DBFLib gtest_main)
 set_property(TARGET DBFTests PROPERTY DBFLib_PRIVATE_HEADERS 1)

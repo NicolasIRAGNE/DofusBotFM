@@ -1,0 +1,58 @@
+#pragma once
+
+#include <functional>
+#include <string_view>
+#include <format>
+
+namespace DBF {
+
+class %ENUM_NAME% {
+public:
+    enum %ENUM_NAME%Impl {%ENUM_VALUES%};
+
+public:
+    constexpr static int EnumSize();
+    static void Foreach(const std::function<void(%ENUM_NAME%Impl)> cb);
+
+public:
+    %ENUM_NAME%(%ENUM_NAME%Impl value);
+    %ENUM_NAME%(const std::string_view& valueStr);
+    %ENUM_NAME%(const char* valueStr);
+
+    std::string_view ToString();
+
+    operator const std::string_view&();
+
+    const %ENUM_NAME%& operator=(const std::string_view& valueStr);
+    const %ENUM_NAME%& operator=(const char* valueStr);
+    auto operator<=>(const %ENUM_NAME%& value) const = default;
+
+    friend std::hash<%ENUM_NAME%>;
+
+private:
+    constexpr static std::string_view %ENUM_NAME%ImplToString(%ENUM_NAME%Impl value);
+    static %ENUM_NAME%Impl StringTo%ENUM_NAME%Impl(const std::string_view& valueStr);
+
+private:
+    %ENUM_NAME%Impl m_Value;
+};
+
+} // namespace DBF
+
+template<class CharT>
+struct std::formatter<DBF::%ENUM_NAME%, CharT>
+    : std::formatter<std::string_view, CharT> {
+    template<class FormatContext>
+    auto format(DBF::%ENUM_NAME% value, FormatContext& fc)
+    {
+        return std::formatter<std::string_view, CharT>::format(
+            value.ToString(), fc);
+    }
+};
+
+template <>
+struct std::hash<DBF::%ENUM_NAME%> {
+    size_t operator()(const DBF::%ENUM_NAME%& value) const {
+        return static_cast<size_t>(value.m_Value);
+    }
+};
