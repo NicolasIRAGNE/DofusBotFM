@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <unordered_map>
 
-#include "StatsList.h"
+#include "Stat.h"
 
 namespace DBF {
 

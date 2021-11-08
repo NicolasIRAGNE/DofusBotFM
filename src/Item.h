@@ -2,9 +2,9 @@
 
 #include <map>
 
-#include "StatsList.h"
-
 namespace DBF {
+
+class Stat;
 
 class Item {
 public:

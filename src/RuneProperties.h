@@ -1,10 +1,10 @@
 #pragma once
 
-#include "StatsList.h"
+#include "Stat.h"
 
 namespace DBF {
 
-enum class Rune;
+class Rune;
 
 struct RuneProperties {
     Stat stat;

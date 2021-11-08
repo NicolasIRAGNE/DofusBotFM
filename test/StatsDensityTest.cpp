@@ -1,15 +1,14 @@
 #include <gtest/gtest.h>
 
-#include "StatsList.h"
+#include "Stat.h"
 #include "StatsDensity.h"
 
 TEST(StatsDensity, ListCheck)
 {
-    int nbStats = static_cast<int>(DBF::Stat::GaPa) + 1;
-    for (int i = 0; i < nbStats; i++) {
-        auto stat = static_cast<DBF::Stat>(i);
-        auto density = DBF::GetStatDensity(stat);
-    }
+    auto cb = [](const DBF::Stat& rune) {
+        auto density = DBF::GetStatDensity(rune);
+    };
+    DBF::Stat::Foreach(cb);
 
     ASSERT_TRUE(true);
 }
