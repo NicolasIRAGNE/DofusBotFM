@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <unordered_map>
 
-#include "RunesList.h"
+#include "Rune.h"
 
 namespace DBF {
 

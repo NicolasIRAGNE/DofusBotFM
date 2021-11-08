@@ -2,7 +2,7 @@
 
 namespace DBF {
 
-enum class Stat;
+class Stat;
 
 float GetStatDensity(const Stat& stat);
 

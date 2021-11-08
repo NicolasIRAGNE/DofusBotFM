@@ -21,7 +21,7 @@ public:
 
     std::string_view ToString();
 
-    operator const std::string_view&();
+    operator const std::string_view();
 
     const %ENUM_NAME%& operator=(const std::string_view& valueStr);
     const %ENUM_NAME%& operator=(const char* valueStr);

@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include "StatsList.h"
+#include "Stat.h"
 #include "Item.h"
 
 TEST(Item, Creation)

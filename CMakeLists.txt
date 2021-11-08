@@ -14,15 +14,17 @@ set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
+add_compile_definitions(__cpp_lib_format=201907L)
+
 #######################################################
 #                       BUILD                         #
 #######################################################
 
 add_library(DBFLib)
 
-set(GENERATED_SOURCES_FOLDER "${CMAKE_CURRENT_BINARY_DIR}/generated-src")
-
-set(ENUM_JSONS)
+set(ENUM_JSONS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/Rune.json"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/Stat.json")
 
 set(ENUM_GENERATOR_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/script/EnumGenerator")
 
@@ -32,6 +34,7 @@ set(ENUM_GENERATOR_DEPENDENCIES
     "${ENUM_GENERATOR_FOLDER}/EnumPattern.h.in"
     "${ENUM_GENERATOR_FOLDER}/EnumPattern.cpp.in")
 
+set(GENERATED_SOURCES_FOLDER "${CMAKE_CURRENT_BINARY_DIR}/generated-src")
 set(GENERATED_SOURCES)
     
 foreach(ENUM_JSON ${ENUM_JSONS})
@@ -51,10 +54,8 @@ target_sources(
     PRIVATE 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsList.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/RunesList.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.cpp"
         
@@ -63,7 +64,12 @@ target_sources(
 add_executable(DofusBotFM)
 target_sources(DofusBotFM PRIVATE "src/main.cpp")
 target_link_libraries(DofusBotFM DBFLib)
-target_include_directories(DBFLib PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>")
+target_include_directories(
+    DBFLib
+    PUBLIC
+        ${GENERATED_SOURCES_FOLDER}
+    PRIVATE
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>")
 
 #######################################################
 #                        TEST                         #
