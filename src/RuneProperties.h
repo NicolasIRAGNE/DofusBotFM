@@ -9,8 +9,9 @@ class Rune;
 struct RuneProperties {
     Stat stat;
     float factor;
+    float density;
 };
 
-RuneProperties GetRuneProperties(const Rune& rune);
+const RuneProperties& GetRuneProperties(const Rune& rune);
 
 } // namespace DBF

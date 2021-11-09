@@ -1,13 +1,13 @@
 #include "StatsDensity.h"
 
-#include <assert.h>
 #include <unordered_map>
+#include <stdexcept>
 
 #include "Stat.h"
 
 namespace DBF {
 
-static const std::unordered_map<Stat, float> densityMap = {
+static const std::unordered_map<Stat, float> kDensityMap = {
     {Stat::Fo, 1.f},          {Stat::Ine, 1.f},      {Stat::Cha, 1.f},
     {Stat::Age, 1.f},         {Stat::Vi, 0.2f},      {Stat::Ini, 0.1f},
     {Stat::Sa, 3.f},          {Stat::Prospe, 3.f},   {Stat::Pui, 2.f},
@@ -29,8 +29,10 @@ static const std::unordered_map<Stat, float> densityMap = {
 
 float GetStatDensity(const Stat& stat)
 {
-    auto it = densityMap.find(stat);
-    assert(it != densityMap.end());
+    auto it = kDensityMap.find(stat);
+    if (it == kDensityMap.end()) {
+        throw std::invalid_argument("Unknown stat");
+    }
 
     const auto& density = it->second;
 
