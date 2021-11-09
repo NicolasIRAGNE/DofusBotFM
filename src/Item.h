@@ -8,10 +8,20 @@ class Stat;
 
 class Item {
 public:
-    Item(const std::map<Stat, float>& stats);
+    struct StatLine {
+        float min;
+        float max;
+        float current;
+    };
+
+public:
+    Item(const std::map<Stat, StatLine>& stats);
+
+    float GetStat(Stat stat);
+    void UpdateStat(Stat stat, float value);
 
 private:
-    std::map<Stat, float> m_Stats;
+    std::map<Stat, StatLine> m_Stats;
 };
 
 } // namespace DBF
