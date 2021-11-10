@@ -73,7 +73,8 @@ void Item::UpdateStat(Stat stat, float value)
     const auto it = m_Stats.find(stat);
     if (it == m_Stats.end()) {
         ::TestStatLineValidity(stat, 0.f, 0.f, value);
-        m_Stats.emplace(stat, StatLine{0.f, 0.f, value});
+        m_Stats.emplace(
+            stat, StatLine {.min = 0.f, .max = 0.f, .current = value});
         return;
     }
 

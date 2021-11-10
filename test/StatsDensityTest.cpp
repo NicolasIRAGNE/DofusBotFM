@@ -17,7 +17,7 @@ TEST(StatsDensity, GetStatDensity_AllValidValues)
 {
     auto cb = [](const DBF::Stat& rune) {
         try {
-            auto density = DBF::GetStatDensity(rune);
+            DBF::GetStatDensity(rune);
         } catch (...) {
             ASSERT_TRUE(false);
         }
