@@ -7,12 +7,10 @@ project(DofusBotFM)
 #######################################################
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS "/EHsc /MP /GR- /W4 /WX /wd4100 /wd4244")
+set(CMAKE_CXX_FLAGS_DEBUG "/MDd /Zi /Ob0 /Od /RTC1")
+set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/MD /Zi /DNDEBUG /O2 /Ob2 /GF")
 
 add_compile_definitions(__cpp_lib_format=201907L)
 
