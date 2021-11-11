@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.5)
 
+include(FetchContent)
+
 project(DofusBotFM)
+
+#######################################################
+#                       LIBS                          #
+#######################################################
+
+FetchContent_Declare(json
+  GIT_REPOSITORY https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+  GIT_TAG v3.10.4)
+
+FetchContent_GetProperties(json)
+if(NOT json_POPULATED)
+  FetchContent_Populate(json)
+  add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
 
 #######################################################
 #                       FLAGS                         #
@@ -58,6 +74,8 @@ target_sources(
         "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.cpp"
         
         ${GENERATED_SOURCES})
+
+target_link_libraries(DBFLib PUBLIC nlohmann_json::nlohmann_json)
 
 add_executable(DofusBotFM)
 target_sources(DofusBotFM PRIVATE "src/main.cpp")
