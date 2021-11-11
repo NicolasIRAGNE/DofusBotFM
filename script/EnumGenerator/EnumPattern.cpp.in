@@ -28,17 +28,22 @@ void %ENUM_NAME%::Foreach(const std::function<void(%ENUM_NAME%Impl)> cb)
 {
 }
 
+%ENUM_NAME%::%ENUM_NAME%(const std::string& valueStr)
+    : %ENUM_NAME%(valueStr.c_str())
+{
+}
+
 %ENUM_NAME%::%ENUM_NAME%(const char* valueStr)
     : %ENUM_NAME%(StringTo%ENUM_NAME%Impl(valueStr))
 {
 }
 
-std::string_view %ENUM_NAME%::ToString()
+std::string_view %ENUM_NAME%::ToString() const
 {
     return %ENUM_NAME%ImplToString(m_Value);
 }
 
-%ENUM_NAME%::operator const std::string_view()
+%ENUM_NAME%::operator const std::string_view() const
 {
     return ToString();
 }

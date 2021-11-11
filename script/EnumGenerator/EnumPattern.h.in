@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <string_view>
+#include <string>
 #include <format>
 
 namespace DBF {
@@ -17,11 +18,12 @@ public:
 public:
     %ENUM_NAME%(%ENUM_NAME%Impl value);
     %ENUM_NAME%(const std::string_view& valueStr);
+    %ENUM_NAME%(const std::string& valueStr);
     %ENUM_NAME%(const char* valueStr);
 
-    std::string_view ToString();
+    std::string_view ToString() const;
 
-    operator const std::string_view();
+    operator const std::string_view() const;
 
     const %ENUM_NAME%& operator=(const std::string_view& valueStr);
     const %ENUM_NAME%& operator=(const char* valueStr);
