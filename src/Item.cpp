@@ -170,6 +170,13 @@ void Item::UpdateStat(Stat stat, float value)
     current += value;
 }
 
+void Item::UpdateStats(const std::map<Stat, float>& stats)
+{
+    for (const auto& [stat, value] : stats) {
+        UpdateStat(stat, value);
+    }
+}
+
 nm::json Item::ToJson() const
 {
     return StatLineMapToJson(m_Stats);

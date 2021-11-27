@@ -32,6 +32,7 @@ public:
 
     const StatLine& GetStat(Stat stat) const;
     void UpdateStat(Stat stat, float value);
+    void UpdateStats(const std::map<Stat, float>& stats);
     nm::json ToJson() const;
 
     auto operator<=>(const Item& item) const = default;

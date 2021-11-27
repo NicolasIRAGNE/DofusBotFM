@@ -9,7 +9,7 @@ TEST(RuneProperties, GetRuneProperties_InvalidValue)
     try {
         const auto rune = static_cast<DBF::Rune::RuneImpl>(1568);
         DBF::GetRuneProperties(rune);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -26,7 +26,7 @@ TEST(RuneProperties, GetRuneProperties_AllValidValues)
 
             ASSERT_TRUE(density == statDensity * factor);
         } catch (...) {
-            ASSERT_TRUE(false);
+            FAIL();
         }
     };
     DBF::Rune::Foreach(cb);

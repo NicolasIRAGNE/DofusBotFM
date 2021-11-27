@@ -8,7 +8,7 @@ TEST(StatsDensity, GetStatDensity_InvalidValue)
     try {
         const auto stat = static_cast<DBF::Stat::StatImpl>(1568);
         DBF::GetStatDensity(stat);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -19,10 +19,8 @@ TEST(StatsDensity, GetStatDensity_AllValidValues)
         try {
             DBF::GetStatDensity(rune);
         } catch (...) {
-            ASSERT_TRUE(false);
+            FAIL();
         }
     };
     DBF::Stat::Foreach(cb);
-
-    ASSERT_TRUE(true);
 }
