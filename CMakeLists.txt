@@ -66,6 +66,7 @@ endforeach(ENUM_JSON)
 target_sources(
     DBFLib
     PRIVATE 
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ItemJsonFormatExemple.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.h"
