@@ -65,14 +65,19 @@ endforeach(ENUM_JSON)
 
 target_sources(
     DBFLib
-    PRIVATE 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/ItemJsonFormatExemple.h"
+    PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/FM.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/FM.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Item.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.h"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ItemJsonFormatExemple.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneApplicationInterface.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.h"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/RuneProperties.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsDensity.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsRunes.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/StatsRunes.cpp"
         
         ${GENERATED_SOURCES})
 

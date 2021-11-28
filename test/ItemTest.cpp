@@ -15,7 +15,7 @@ TEST(Item, StatsLineMapConstructor_MinGreaterThanMax)
     };
     try {
         DBF::Item item(itemStats);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -27,7 +27,7 @@ TEST(Item, StatsLineMapConstructor_MinBelowZeroAndMaxAboveZero)
     };
     try {
         DBF::Item item(itemStats);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -39,7 +39,7 @@ TEST(Item, StatsLineMapConstructor_StatBelowZeroAndStatBelowMin)
     };
     try {
         DBF::Item item(itemStats);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -51,7 +51,7 @@ TEST(Item, StatsLineMapConstructor_StatAboveMaxAndStatAboveMaximumLineDensity)
     };
     try {
         DBF::Item item(itemStats);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -82,7 +82,7 @@ TEST(Item, StatsLineMapConstructor_ValidStatLinesMap)
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).max == 15.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).current == 20.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -94,7 +94,7 @@ TEST(Item, JsonConstructor_StatsNotAnObject)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -113,7 +113,7 @@ TEST(Item, JsonConstructor_StatNameDoNotExist)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -128,7 +128,7 @@ TEST(Item, JsonConstructor_StatNameIsNotAnObject)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -147,7 +147,7 @@ TEST(Item, JsonConstructor_StatLineMinNotANumber)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -166,7 +166,7 @@ TEST(Item, JsonConstructor_StatLineMaxNotANumber)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -185,7 +185,7 @@ TEST(Item, JsonConstructor_StatLineValueNotANumber)
     })"_json;
     try {
         DBF::Item item(json);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -220,7 +220,7 @@ TEST(Item, JsonConstructor_ValidJson)
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).max == 15.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).current == 20.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -229,7 +229,7 @@ TEST(Item, JsonFileConstructor_FileNotFound)
     const std::string jsonFile = "toto";
     try {
         DBF::Item item(jsonFile);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -271,7 +271,7 @@ TEST(Item, JsonFileConstructor_ValidFile)
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).max == 15.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::ReAir).current == 20.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -302,7 +302,7 @@ TEST(Item, GetStat_NonExistentStat)
         ASSERT_TRUE(item.GetStat(DBF::Stat::RePa).max == 0.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::RePa).current == 0.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -332,7 +332,7 @@ TEST(Item, GetStat_ExistentStat)
         ASSERT_TRUE(item.GetStat(DBF::Stat::RetPa).max == -2.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::RetPa).current == -3.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -345,14 +345,14 @@ TEST(Item, UpdateStat_NonExistentAndInvalidStat)
     try {
         DBF::Item item(itemStats);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 
     try {
         DBF::Item item(itemStats);
 
         item.UpdateStat(DBF::Stat::Ine, -1.f);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 
@@ -360,7 +360,7 @@ TEST(Item, UpdateStat_NonExistentAndInvalidStat)
         DBF::Item item(itemStats);
 
         item.UpdateStat(DBF::Stat::Ine, 102.f);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -373,14 +373,14 @@ TEST(Item, UpdateStat_ExistentAndInvalidStat)
     try {
         DBF::Item item(itemStats);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 
     try {
         DBF::Item item(itemStats);
 
         item.UpdateStat(DBF::Stat::Age, -61.f);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 
@@ -388,7 +388,7 @@ TEST(Item, UpdateStat_ExistentAndInvalidStat)
         DBF::Item item(itemStats);
 
         item.UpdateStat(DBF::Stat::Age, 42.f);
-        ASSERT_TRUE(false);
+        FAIL();
     } catch (...) {
     }
 }
@@ -412,7 +412,7 @@ TEST(Item, UpdateStat_NonExistentAndValidStat)
         item.UpdateStat(DBF::Stat::Cha, 101.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::Cha).current == 101.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
 
@@ -435,7 +435,51 @@ TEST(Item, UpdateStat_ExistentAndValidStat)
         item.UpdateStat(DBF::Stat::Cri, 4.f);
         ASSERT_TRUE(item.GetStat(DBF::Stat::Cri).current == 10.f);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
+    }
+}
+
+TEST(Item, UpdateStats_NonExistentAndValidStats)
+{
+    std::map<DBF::Stat, DBF::Item::StatLine> itemStats = {
+        {DBF::Stat::Age, {20.f, 80.f, 60.f}},
+        {DBF::Stat::Ine, {-80.f, -20.f, -30.f}},
+        {DBF::Stat::Cri, {2.f, 8.f, 6.f}},
+    };
+    try {
+        DBF::Item item(itemStats);
+
+        item.UpdateStats(
+            {{DBF::Stat::DoAir, 3.f},
+             {DBF::Stat::RePerDi, 1.f},
+             {DBF::Stat::Cha, 101.f}});
+        ASSERT_TRUE(item.GetStat(DBF::Stat::DoAir).current == 3.f);
+        ASSERT_TRUE(item.GetStat(DBF::Stat::RePerDi).current == 1.f);
+        ASSERT_TRUE(item.GetStat(DBF::Stat::Cha).current == 101.f);
+    } catch (...) {
+        FAIL();
+    }
+}
+
+TEST(Item, UpdateStats_ExistentAndValidStats)
+{
+    std::map<DBF::Stat, DBF::Item::StatLine> itemStats = {
+        {DBF::Stat::Age, {20.f, 80.f, 60.f}},
+        {DBF::Stat::Ine, {-80.f, -20.f, -30.f}},
+        {DBF::Stat::Cri, {2.f, 8.f, 6.f}},
+    };
+    try {
+        DBF::Item item(itemStats);
+
+        item.UpdateStats(
+            {{DBF::Stat::Age, -60.f},
+             {DBF::Stat::Ine, -50.f},
+             {DBF::Stat::Cri, 4.f}});
+        ASSERT_TRUE(item.GetStat(DBF::Stat::Age).current == 0.f);
+        ASSERT_TRUE(item.GetStat(DBF::Stat::Ine).current == -80.f);
+        ASSERT_TRUE(item.GetStat(DBF::Stat::Cri).current == 10.f);
+    } catch (...) {
+        FAIL();
     }
 }
 
@@ -450,6 +494,6 @@ TEST(Item, ToJson_Valid)
         const auto jsonFromItem = item.ToJson();
         ASSERT_TRUE(jsonFromItem == json);
     } catch (...) {
-        ASSERT_TRUE(false);
+        FAIL();
     }
 }
